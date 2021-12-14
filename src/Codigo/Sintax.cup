@@ -1,0 +1,40 @@
+package Codigo;
+import java_cup.runtime.Symbol;
+parser code
+{:
+ private Symbol s;
+
+ public void syntax_error(Symbol s){
+ this.s = s;
+ }
+ public Symbol getS(){
+ return this.s;
+}
+:};
+terminal Linea, Principal,Clase,Publico, Entero,Caracter, Privado, Entonces,
+Ademas, Para, Mientras,
+ AbreParentesis, CierraParentesis, Llave_a, Llave_c,P_coma, MayorQue, MenorQue,Igual, Suma, Resta, Multiplicacion, Division, 
+Identificador, Numero,  ERROR;
+non terminal CLASE,INICIO, SENTENCIA, OPERADORES,CICLOS;
+start with CLASE;
+
+
+CLASE ::=
+ Clase Identificador  Llave_a CICLOS Llave_c
+|
+ Publico Clase Identificador  Llave_a CICLOS Llave_c
+|
+ Privado Clase Identificador  Llave_a CICLOS Llave_c
+|
+Clase Identificador  Llave_a Identificador Igual Numero Identificador OPERADORES Identificador  Llave_c
+;
+
+SENTENCIA ::= AbreParentesis Identificador MayorQue Numero CierraParentesis
+|
+              AbreParentesis Identificador MenorQue Numero CierraParentesis
+;   
+CICLOS ::= Entero Identificador Igual Numero P_coma Mientras SENTENCIA Llave_a Llave_c
+;
+OPERADORES ::=
+            Suma|Resta|Multiplicacion|Division
+;
